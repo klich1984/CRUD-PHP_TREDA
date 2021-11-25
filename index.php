@@ -37,6 +37,39 @@
 				</div>
 			</div>
 		</div>
+				<!-- Columna para tareas -->
+		<div class="col-md-8">
+			<!-- Tabla que lista tareas -->
+			<table class="table table-bordered">
+					<thead>
+						<tr class="text-center">
+							<th>Titulo</th>
+							<th>Descripción</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							$query = "SELECT * FROM Tienda";
+							$all_tiendas = mysqli_query($conn, $query);
+							/* Recorro cada una de las tareas  */
+							while ($row = mysqli_fetch_array($all_tiendas)) { ?>
+								<tr>
+									<td><?php echo $row['Nombre'] ?> </td>
+									<td><?php echo $row['Fecha'] ?></td>
+									<td class="text-center">
+										<a href="edit.php?id=<?php echo $row['ID']?>" class="btn btn-info">
+											<i class="far fa-edit"></i>
+										</a>
+										<a href="delete.php?id=<?php echo $row['ID'] ?>" class="btn btn-danger">
+											<i class="fas fa-trash-alt"></i>
+										</a>
+									</td>
+								</tr>
+						<?php	} ?>
+					</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 
