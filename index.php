@@ -23,7 +23,7 @@
 					Tienda
 				</div>
 				<div class="card card-body">
-					<!-- Formulario, se enviara al archivo save_task.php por el action -->
+					<!-- Formulario, se enviara al archivo save.php por el action -->
 					<form action="save.php" method="POST">
 						<div class="form-group">
 							<input type="text" name="title" class="form-control" placeholder="Nombre de la tienda" autofocus>
@@ -45,6 +45,7 @@
 						<tr class="text-center">
 							<th>Titulo</th>
 							<th>Descripción</th>
+							<th>Productos</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -57,6 +58,11 @@
 								<tr>
 									<td><?php echo $row['nombre'] ?> </td>
 									<td><?php echo $row['fecha_apertura'] ?></td>
+									<td class="text-center">
+									<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
+										<i class="fas fa-tasks"> Ver productos</i>
+									</a>
+									</td>
 									<td class="text-center">
 										<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
 											<i class="far fa-edit"></i>
