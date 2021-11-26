@@ -29,7 +29,7 @@
 							<input type="text" name="title" class="form-control" placeholder="Nombre de la tienda" autofocus>
 						</div>
 						<div class="form-group">
-							<input type="date" name="date" class="form-control" placeholder="Fecha de Apertura YYYY-mm-dd">
+							<input type="date" name="date" class="form-control" placeholder="Fecha de Apertura">
 						</div>
 						<!-- Input para procesar el formulario -->
 						<input type="submit" class="btn btn-success btn-block" name="save_shop" value="Guardar Tienda">
@@ -37,9 +37,9 @@
 				</div>
 			</div>
 		</div>
-				<!-- Columna para tareas -->
+				<!-- Columna para tiendas -->
 		<div class="col-md-8">
-			<!-- Tabla que lista tareas -->
+			<!-- Tabla que lista tiendas -->
 			<table class="table table-bordered">
 					<thead>
 						<tr class="text-center">
@@ -52,16 +52,16 @@
 						<?php
 							$query = "SELECT * FROM Tienda";
 							$all_tiendas = mysqli_query($conn, $query);
-							/* Recorro cada una de las tareas  */
+							/* Recorro cada una de las tiendas  */
 							while ($row = mysqli_fetch_array($all_tiendas)) { ?>
 								<tr>
-									<td><?php echo $row['Nombre'] ?> </td>
-									<td><?php echo $row['Fecha'] ?></td>
+									<td><?php echo $row['nombre'] ?> </td>
+									<td><?php echo $row['fecha_apertura'] ?></td>
 									<td class="text-center">
-										<a href="edit.php?id=<?php echo $row['ID']?>" class="btn btn-info">
+										<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
 											<i class="far fa-edit"></i>
 										</a>
-										<a href="delete.php?id=<?php echo $row['ID'] ?>" class="btn btn-danger">
+										<a href="delete.php?id=<?php echo $row['tienda_id'] ?>" class="btn btn-danger">
 											<i class="fas fa-trash-alt"></i>
 										</a>
 									</td>

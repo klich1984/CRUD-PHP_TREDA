@@ -4,16 +4,16 @@
 
 	if (isset($_GET['id'])) {
 		$id = $_GET['id'];
-		$query = "SELECT * FROM Tienda WHERE id = $id";
+		$query = "SELECT * FROM Tienda WHERE tienda_id = $id";
 
 		$result = mysqli_query($conn, $query);
 		// Comprobar cuantas lineas tiene mis resultados
 		if (mysqli_num_rows($result) == 1 ) {
 			$row = mysqli_fetch_array($result);
-			$nombre = $row['Nombre'];
-			$date = $row['Fecha'];
-			echo $nombre;
-		echo $date;
+			$nombre = $row['nombre'];
+			$date = $row['fecha_apertura'];
+		// 	echo $nombre;
+		// echo $date;
 		}
 	}
 
@@ -22,14 +22,14 @@
 		$id = $_GET['id'];
 		$nombre = $_POST['nombre'];
 		$date = $_POST['date'];
-		echo $nombre;
-		echo $date;
+		// echo $nombre;
+		// echo $date;
 		// echo $id;
-		$query = "UPDATE Tienda set Nombre = '$nombre', Fecha = '$date' WHERE id = $id";
+		$query = "UPDATE Tienda set nombre = '$nombre', fecha_apertura = '$date' WHERE tienda_id = $id";
 
 		mysqli_query($conn, $query);
 
-		$_SESSION['message'] = 'Tarea actualizada Correctamente';
+		$_SESSION['message'] = 'Tienda actualizada Correctamente';
 		$_SESSION['message_type'] = 'primary';
 		/* Redireccionar */
 		header("Location: index.php");

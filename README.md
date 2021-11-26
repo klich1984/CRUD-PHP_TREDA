@@ -1,6 +1,6 @@
 # Creacion de CRUD con PHP y MYSQL
 
-Se uso xampp para realizar la el proyecto.
+Se uso xampp para realizar el proyecto.
 
 Se debe crear una base de datos llamada `treda-solutions` con dos tablas de nombre `Tienda` y `Producto`.
 

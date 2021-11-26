@@ -11,7 +11,7 @@ if (isset($_POST['save_shop'])) {
 	echo $title;
 	echo $date;
 	/* Consulta que se realizara a la bd, Inserccion de datos */
-	$query = "INSERT INTO Tienda(Nombre, Fecha) VALUES ('$title', '$date');";
+	$query = "INSERT INTO Tienda(nombre, fecha_apertura) VALUES ('$title', '$date');";
 	$result = mysqli_query($conn, $query);
 
 	if (!$result) {
@@ -19,7 +19,7 @@ if (isset($_POST['save_shop'])) {
 	}
 	echo 'Guardado';
 	/* Guardar en la sesion un mensaje y un color */
-	$_SESSION['message'] = 'La tarea ha sido guardada correctamente';
+	$_SESSION['message'] = 'La tienda ha sido guardada correctamente';
 	$_SESSION['message_type'] = 'success';
 
 	/* Redireccionar */
