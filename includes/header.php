@@ -12,7 +12,7 @@
 
 <body>
 
-	<nav class="navbar navbar-dark bg-dark">
+	<nav class="navbar navbar-dark bg-dark sticky-top">
 		<div class="container">
 			<a href="index.php" class="navbar-brand">PHP MYSQL CRUD</a>
 		</div>

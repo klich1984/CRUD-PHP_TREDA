@@ -3,16 +3,29 @@
 include("database/db.php");
 // echo $_GET['id'];
 $tienda_id = $_GET['id'];
+/* SELECT nombre FROM `Tienda` WHERE tienda_id = 12; */
+$query1 = "SELECT nombre FROM Tienda WHERE tienda_id = $tienda_id";
+
+$result = mysqli_query($conn, $query1);
+		// Comprobar cuantas lineas tiene mis resultados
+		if (mysqli_num_rows($result) == 1 ) {
+			// echo 'Puedemos editar';
+			$row = mysqli_fetch_array($result);
+			$name = $row['nombre'];
+			// echo $name;
+		}
+
+// var_dump($name);
 
 // $txtImage = 'image.png'
 
 ?>
 <?php require('includes/header.php') ?>
 <div class="container">
-	<a href="index.php" class="btn btn-secondary mt-4">Ir a tiendas</a>
+		<h1 class="text-center text-info">Nombre Tienda: <?php echo $name ?></h1>
 </div>
 <div class="container p-4">
-	<h1>Tienda: </h1>
+	<a href="index.php" class="btn btn-primary mb-2">Ir a tiendas</a>
 	<div class="row">
 		<div class="col-md-4">
 			<!-- Alertas -->
@@ -92,43 +105,53 @@ $tienda_id = $_GET['id'];
 		</div>
 				<!-- Columna para productos -->
 		<div class="col-md-8">
-			<!-- Tabla que lista productos de la tienda -->
-			<table class="table table-bordered">
-					<thead>
-						<tr class="text-center">
-							<th>SKU</th>
-							<th>Producto</th>
-							<th>Descripción</th>
-							<th>Precio</th>
-							<th>Imagen</th>
-						</tr>
-					</thead>
-<!-- 					<tbody>
-						<?php
-							$query = "SELECT * FROM Producto WHERE tienda_id = $tienda_id";
-							$all_tiendas = mysqli_query($conn, $query);
-							/* Recorro cada una de las tiendas  */
-							while ($row = mysqli_fetch_array($all_tiendas)) { ?>
-								<tr>
-									<td><?php echo $row['nombre'] ?> </td>
-									<td><?php echo $row['fecha_apertura'] ?></td>
-									<td class="text-center">
-									<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
-										<i class="fas fa-tasks"> Ver productos</i>
-									</a>
-									</td>
-									<td class="text-center">
-										<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
-											<i class="far fa-edit"></i>
-										</a>
-										<a href="delete.php?id=<?php echo $row['tienda_id'] ?>" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</a>
-									</td>
+			<div class="card">
+				<div class="card-header">
+					Productos
+				</div>
+				<div class="card card-body p-1">
+					<!-- Tabla que lista productos de la tienda -->
+					<table class="table table-bordered">
+							<thead>
+								<tr class="text-center">
+									<th>SKU</th>
+									<th>Producto</th>
+									<th>Descripción</th>
+									<th>Precio</th>
+									<th>Imagen</th>
+									<th>Acciones</th>
 								</tr>
-						<?php	} ?>
-					</tbody> -->
-			</table>
+							</thead>
+							<tbody>
+								<?php
+								/* SELECT * FROM `Producto` P JOIN `Tienda` T ON P.tienda_id = T.tienda_id WHERE P.tienda_id = 18; */
+									$query = "SELECT * FROM Producto P JOIN Tienda T ON P.tienda_id = T.tienda_id WHERE P.tienda_id = $tienda_id";
+									$all_productos = mysqli_query($conn, $query);
+									// var_dump($all_productos);
+
+									/* Recorro cada una de las tiendas  */
+									while ($row = mysqli_fetch_array($all_productos)) { ?>
+										<tr>
+											<td><?php echo $row['SKU'] ?> </td>
+											<td><?php echo $row['nombre'] ?></td>
+											<td><?php echo $row['descripcion'] ?></td>
+											<td>$ <?php echo $row['valor'] ?></td>
+											<td><?php echo $row['imagen'] ?></td>
+											<td class="text-center">
+												<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
+													<i class="far fa-edit"></i>
+												</a>
+												<a href="delete.php?id=<?php echo $row['tienda_id'] ?>" class="btn btn-danger">
+													<i class="fas fa-trash-alt"></i>
+												</a>
+											</td>
+
+										</tr>
+								<?php	} ?>
+							</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

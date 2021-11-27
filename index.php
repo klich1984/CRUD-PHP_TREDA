@@ -39,42 +39,49 @@
 		</div>
 				<!-- Columna para tiendas -->
 		<div class="col-md-8">
-			<!-- Tabla que lista tiendas -->
-			<table class="table table-bordered">
-					<thead>
-						<tr class="text-center">
-							<th>Titulo</th>
-							<th>Descripción</th>
-							<th>Productos</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							$query = "SELECT * FROM Tienda";
-							$all_tiendas = mysqli_query($conn, $query);
-							/* Recorro cada una de las tiendas  */
-							while ($row = mysqli_fetch_array($all_tiendas)) { ?>
-								<tr>
-									<td><?php echo $row['nombre'] ?> </td>
-									<td><?php echo $row['fecha_apertura'] ?></td>
-									<td class="text-center">
-									<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
-										<i class="fas fa-tasks"> Ver productos</i>
-									</a>
-									</td>
-									<td class="text-center">
-										<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
-											<i class="far fa-edit"></i>
-										</a>
-										<a href="delete.php?id=<?php echo $row['tienda_id'] ?>" class="btn btn-danger">
-											<i class="fas fa-trash-alt"></i>
-										</a>
-									</td>
+			<div class="card">
+				<div class="card-header">
+					Tiendas
+				</div>
+				<div class="card card-body p-1">
+					<!-- Tabla que lista tiendas -->
+					<table class="table table-bordered">
+							<thead>
+								<tr class="text-center">
+									<th>Titulo</th>
+									<th>Descripción</th>
+									<th>Productos</th>
+									<th>Acciones</th>
 								</tr>
-						<?php	} ?>
-					</tbody>
-			</table>
+							</thead>
+							<tbody>
+								<?php
+									$query = "SELECT * FROM Tienda";
+									$all_tiendas = mysqli_query($conn, $query);
+									/* Recorro cada una de las tiendas  */
+									while ($row = mysqli_fetch_array($all_tiendas)) { ?>
+										<tr>
+											<td><?php echo $row['nombre'] ?> </td>
+											<td><?php echo $row['fecha_apertura'] ?></td>
+											<td class="text-center">
+											<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
+												<i class="fas fa-tasks"> Ver productos</i>
+											</a>
+											</td>
+											<td class="text-center">
+												<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
+													<i class="far fa-edit"></i>
+												</a>
+												<a href="delete.php?id=<?php echo $row['tienda_id'] ?>" class="btn btn-danger">
+													<i class="fas fa-trash-alt"></i>
+												</a>
+											</td>
+										</tr>
+								<?php	} ?>
+							</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
