@@ -138,10 +138,10 @@ $result = mysqli_query($conn, $query1);
 											<td>$ <?php echo $row['valor'] ?></td>
 											<td><?php echo $row['imagen'] ?></td>
 											<td class="text-center">
-												<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">
+												<a href="edit_product.php?id=<?php echo $row['SKU']?>" class="btn btn-info">
 													<i class="far fa-edit"></i>
 												</a>
-												<a href="delete.php?id=<?php echo $row['tienda_id'] ?>" class="btn btn-danger">
+												<a href="delete_product.php?sku=<?php echo $row['SKU'] ?>" class="btn btn-danger">
 													<i class="fas fa-trash-alt"></i>
 												</a>
 											</td>
