@@ -23,12 +23,8 @@ $result = mysqli_query($conn, $query1);
 <?php require('includes/header.php') ?>
 <div class="container">
 		<h1 class="text-center text-info">Nombre Tienda: <?php echo $name ?></h1>
-</div>
-<div class="container p-4">
-	<a href="index.php" class="btn btn-primary mb-2">Ir a tiendas</a>
-	<div class="row">
-		<div class="col-md-4">
-			<!-- Alertas -->
+		<div class="col-md-6 m-auto">
+					<!-- Alertas -->
 			<?php if(isset($_SESSION['message'])) { ?>
 				<div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
 					<?= $_SESSION['message'] ?>
@@ -38,6 +34,13 @@ $result = mysqli_query($conn, $query1);
 				</div>
 				<!-- Limpiar los datos que tenemos en $_SESSION para ocultar la alerta cuando la cierren -->
 			<?php session_unset(); }; ?>
+			</div>
+</div>
+<div class="container p-4">
+	<a href="index.php" class="btn btn-primary mb-2">Ir a tiendas</a>
+	<div class="row">
+		<div class="col-md-4">
+
 
 			<!-- Form Insertar Productos -->
 			<div class="card">

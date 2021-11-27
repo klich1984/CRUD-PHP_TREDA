@@ -41,7 +41,7 @@
 		// echo $query;
 		mysqli_query($conn, $query);
 
-		$_SESSION['message'] = 'Tienda actualizada Correctamente';
+		$_SESSION['message'] = 'Producto actualizado Correctamente';
 		$_SESSION['message_type'] = 'primary';
 		/* Redireccionar */
 		header("Location: productos.php?id=$tienda_id");

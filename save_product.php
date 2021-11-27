@@ -18,14 +18,14 @@ if (isset($_POST['save_product'])) {
 	// echo $tienda_id.'<br/>';
 
 	/* Consulta que se realizara a la bd, Inserccion de datos */
-	$query = "INSERT INTO Producto(tienda_id, nombre, descripcion, valor, imagen) VALUES ($tienda_id, '$name_product', '$description_product', $price_product, '$image_product' );";
+	$query = "INSERT INTO Producto(tienda_id, nombre_producto, descripcion, valor, imagen) VALUES ($tienda_id, '$name_product', '$description_product', $price_product, '$image_product' );";
 	// echo $query;
 	$result = mysqli_query($conn, $query);
 
 	if (!$result) {
 		die("Consulta no realizada");
 	}
-	echo 'Guardado';
+	// echo 'Guardado';
 	/* Guardar en la sesion un mensaje y un color */
 	$_SESSION['message'] = 'El producto ha sido guardado correctamente';
 	$_SESSION['message_type'] = 'success';
