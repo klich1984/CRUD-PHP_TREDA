@@ -12,7 +12,6 @@ if (isset($_POST['save_product'])) {
 	$image_product = (isset($_FILES['txtImage']['name'])) ? $_FILES['txtImage']['name'] : '';
 	$tienda_id = $_POST['id'];
 
-	var_dump($_FILES);
 	/* Almacenar imagen */
 	$dateNow = new DateTime();
 	$nameFileImage = ($image_product != '') ? $dateNow->getTimestamp().'_'.$_FILES['txtImage']['name'] : 'imagen.jpg';

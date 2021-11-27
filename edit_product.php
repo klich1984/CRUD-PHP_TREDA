@@ -29,14 +29,41 @@
 		$name_product = $_POST['name'];
 		$description_product = $_POST['description'];
 		$price_product = $_POST['price'];
-		$image_product = $_POST['image'] ? $_POST['image'] : 'imagen.jpg';
+		$image_product = (isset($_FILES['txtImage']['name'])) ? $_FILES['txtImage']['name'] : '';
 		// echo $tienda_id."<br/>";
 		// echo $name_product."<br/>";
 		// echo $description_product."<br/>";
 		// echo $price_product."<br/>";
-		echo $image_product."<br/>";
-		/* UPDATE `Producto` SET `SKU`='[value-1]',`tienda_id`='[value-2]',`nombre_producto`='[value-3]',`descripcion`='[value-4]',`valor`='[value-5]',`imagen`='[value-6]' WHERE 1 */
-		$query = "UPDATE Producto SET nombre_producto = '$name_product', descripcion = '$description_product',  valor = $price_product, imagen = '$image_product'  WHERE SKU = $SKU";
+		// echo $image_product."<br/>";
+
+		/* Actualizar imagen nueva*/
+		$dateNow = new DateTime();
+		$nameFileImage = ($image_product != '') ? $dateNow->getTimestamp().'_'.$_FILES['txtImage']['name'] : 'imagen.jpg';
+
+		$tmpImage = $_FILES['txtImage']['tmp_name'];
+		move_uploaded_file($tmpImage, './images/'.$nameFileImage);
+
+		/* Borrar imagen antigua */
+		$query1 = "SELECT imagen FROM Producto WHERE SKU = $SKU";
+
+		$result = mysqli_query($conn, $query1);
+		// Comprobar cuantas lineas tiene mis resultados
+		if (mysqli_num_rows($result) == 1 ) {
+			// echo 'Puedemos editar';
+			$row = mysqli_fetch_array($result);
+			$image = $row['imagen'];
+			// echo $image;
+		}
+
+		if (isset($image) && ($image != 'imagen.jpg')) {
+			if(file_exists('./images/'.$image)) {
+				/* Borrar el archivo  */
+				unlink('./images/'.$image);
+			}
+		}
+
+		/* Query Actualizar Producto */
+		$query = "UPDATE Producto SET nombre_producto = '$name_product', descripcion = '$description_product',  valor = $price_product, imagen = '$nameFileImage'  WHERE SKU = $SKU";
 
 		// echo $query;
 		mysqli_query($conn, $query);
@@ -63,7 +90,7 @@
 					</div>
 					<div class="card card-body">
 						<!-- Formulario -->
-						<form action="edit_product.php?sku=<?php echo $_GET['sku']; ?>" method="POST">
+						<form action="edit_product.php?sku=<?php echo $_GET['sku']; ?>"  enctype="multipart/form-data" method="POST">
 							<!-- Nombre -->
 							<div class="form-group">
 								<input
@@ -108,7 +135,6 @@
 								</div>
 								<input
 									type="file"
-									name="image"
 									name="txtImage"
 									class="form-control"
 									placeholder="Imagen">
