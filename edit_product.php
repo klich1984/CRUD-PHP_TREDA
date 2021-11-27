@@ -29,7 +29,7 @@
 		$name_product = $_POST['name'];
 		$description_product = $_POST['description'];
 		$price_product = $_POST['price'];
-		$image_product = $_POST['image'] ? $_POST['image'] : 'imagen.png';
+		$image_product = $_POST['image'] ? $_POST['image'] : 'imagen.jpg';
 		// echo $tienda_id."<br/>";
 		// echo $name_product."<br/>";
 		// echo $description_product."<br/>";
