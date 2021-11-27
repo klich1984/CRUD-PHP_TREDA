@@ -48,8 +48,8 @@
 					<table class="table table-bordered">
 							<thead>
 								<tr class="text-center">
-									<th>Titulo</th>
-									<th>Descripción</th>
+									<th>Nombre Tienda</th>
+									<th>Fecha Apertura</th>
 									<th>Productos</th>
 									<th>Acciones</th>
 								</tr>

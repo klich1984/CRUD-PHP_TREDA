@@ -39,7 +39,7 @@ $result = mysqli_query($conn, $query1);
 				<!-- Limpiar los datos que tenemos en $_SESSION para ocultar la alerta cuando la cierren -->
 			<?php session_unset(); }; ?>
 
-			<!-- Productos -->
+			<!-- Form Insertar Productos -->
 			<div class="card">
 				<div class="card-header">
 					Inserte Producto
@@ -133,12 +133,12 @@ $result = mysqli_query($conn, $query1);
 									while ($row = mysqli_fetch_array($all_productos)) { ?>
 										<tr>
 											<td><?php echo $row['SKU'] ?> </td>
-											<td><?php echo $row['nombre'] ?></td>
+											<td><?php echo $row['nombre_producto'] ?></td>
 											<td><?php echo $row['descripcion'] ?></td>
 											<td>$ <?php echo $row['valor'] ?></td>
 											<td><?php echo $row['imagen'] ?></td>
 											<td class="text-center">
-												<a href="edit_product.php?id=<?php echo $row['SKU']?>" class="btn btn-info">
+												<a href="edit_product.php?sku=<?php echo $row['SKU']?>" class="btn btn-info">
 													<i class="far fa-edit"></i>
 												</a>
 												<a href="delete_product.php?sku=<?php echo $row['SKU'] ?>" class="btn btn-danger">
