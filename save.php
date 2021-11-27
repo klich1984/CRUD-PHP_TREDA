@@ -8,8 +8,8 @@ if (isset($_POST['save_shop'])) {
 	$title = $_POST['title'];
 	$date = date($_POST['date']);
 
-	echo $title;
-	echo $date;
+	// echo $title;
+	// echo $date;
 	/* Consulta que se realizara a la bd, Inserccion de datos */
 	$query = "INSERT INTO Tienda(nombre, fecha_apertura) VALUES ('$title', '$date');";
 	$result = mysqli_query($conn, $query);
@@ -17,7 +17,7 @@ if (isset($_POST['save_shop'])) {
 	if (!$result) {
 		die("Consulta no realizada");
 	}
-	echo 'Guardado';
+	// echo 'Guardado';
 	/* Guardar en la sesion un mensaje y un color */
 	$_SESSION['message'] = 'La tienda ha sido guardada correctamente';
 	$_SESSION['message_type'] = 'success';

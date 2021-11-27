@@ -26,13 +26,25 @@
 					<!-- Formulario, se enviara al archivo save.php por el action -->
 					<form action="save.php" method="POST">
 						<div class="form-group">
-							<input type="text" name="title" class="form-control" placeholder="Nombre de la tienda" autofocus>
+							<input
+								type="text"
+								name="title"
+								class="form-control"
+								placeholder="Nombre de la tienda" autofocus>
 						</div>
 						<div class="form-group">
-							<input type="date" name="date" class="form-control" placeholder="Fecha de Apertura">
+							<input
+								type="date"
+								name="date"
+								class="form-control"
+								placeholder="Fecha de Apertura">
 						</div>
 						<!-- Input para procesar el formulario -->
-						<input type="submit" class="btn btn-success btn-block" name="save_shop" value="Guardar Tienda">
+						<input
+							type="submit"
+							class="btn btn-success btn-block"
+							name="save_shop"
+							value="Guardar Tienda">
 					</form>
 				</div>
 			</div>
@@ -64,9 +76,9 @@
 											<td><?php echo $row['nombre'] ?> </td>
 											<td><?php echo $row['fecha_apertura'] ?></td>
 											<td class="text-center">
-											<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
-												<i class="fas fa-tasks"> Ver productos</i>
-											</a>
+												<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
+													<i class="fas fa-tasks"> Ver productos</i>
+												</a>
 											</td>
 											<td class="text-center">
 												<a href="edit.php?id=<?php echo $row['tienda_id']?>" class="btn btn-info">

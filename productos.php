@@ -36,20 +36,18 @@ $result = mysqli_query($conn, $query1);
 			<?php session_unset(); }; ?>
 			</div>
 </div>
-<div class="container p-4">
+<div class="container-fluid p-4">
 	<a href="index.php" class="btn btn-primary mb-2">Ir a tiendas</a>
 	<div class="row">
-		<div class="col-md-4">
-
-
+		<div class="col-md-3">
 			<!-- Form Insertar Productos -->
 			<div class="card">
 				<div class="card-header">
 					Inserte Producto
 				</div>
 				<div class="card card-body">
-					<!-- Formulario -->
-					<form action="save_product.php" method="POST">
+					<!-- Formulario - para permitir el envio de archivos por POST enctype="multipart/form-data-->
+					<form action="save_product.php" enctype="multipart/form-data" method="POST">
 						<!-- Nombre -->
 						<div class="form-group">
 							<input
@@ -80,16 +78,18 @@ $result = mysqli_query($conn, $query1);
 						</div>
 						<!-- Imagen -->
 						<div class="form-group">
-							<label for="txtImagen">Imagen:</label>
+							<label for="txtImage">Imagen:</label>
 							producto.jpg
-							<img
-								src="./images/image.jpg"
-								alt="Nombre Producto"
-								width="50"
-								class="img-thumbnail rounded mb-2">
+							<div>
+								<img
+									src="https://www.w3schools.com/bootstrap4/img_avatar4.png"
+									alt="Nombre Producto"
+									width="50"
+									class="img-thumbnail rounded mb-2">
+							</div>
 							<input
 								type="file"
-								name="image"
+								id="txtImage"
 								name="txtImage"
 								class="form-control"
 								placeholder="Imagen">
@@ -107,7 +107,7 @@ $result = mysqli_query($conn, $query1);
 			</div>
 		</div>
 				<!-- Columna para productos -->
-		<div class="col-md-8">
+		<div class="col-md-9">
 			<div class="card">
 				<div class="card-header">
 					Productos
@@ -127,12 +127,11 @@ $result = mysqli_query($conn, $query1);
 							</thead>
 							<tbody>
 								<?php
-								/* SELECT * FROM `Producto` P JOIN `Tienda` T ON P.tienda_id = T.tienda_id WHERE P.tienda_id = 18; */
 									$query = "SELECT * FROM Producto P JOIN Tienda T ON P.tienda_id = T.tienda_id WHERE P.tienda_id = $tienda_id";
 									$all_productos = mysqli_query($conn, $query);
 									// var_dump($all_productos);
 
-									/* Recorro cada una de las tiendas  */
+									/* Recorro cada una de los productos  */
 									while ($row = mysqli_fetch_array($all_productos)) { ?>
 										<tr>
 											<td><?php echo $row['SKU'] ?> </td>
@@ -148,7 +147,6 @@ $result = mysqli_query($conn, $query1);
 													<i class="fas fa-trash-alt"></i>
 												</a>
 											</td>
-
 										</tr>
 								<?php	} ?>
 							</tbody>

@@ -25,9 +25,13 @@
 		// echo $nombre;
 		// echo $date;
 		// echo $id;
-		$query = "UPDATE Tienda set nombre = '$nombre', fecha_apertura = '$date' WHERE tienda_id = $id";
+		$query = "UPDATE Tienda SET nombre = '$nombre', fecha_apertura = '$date' WHERE tienda_id = $id";
 
-		mysqli_query($conn, $query);
+		$result = mysqli_query($conn, $query);
+		// Si no hay un resultado terminanmos la conexion
+		if (!$result) {
+			die('La consulta fallo =(');
+		}
 
 		$_SESSION['message'] = 'Tienda actualizada Correctamente';
 		$_SESSION['message_type'] = 'primary';
@@ -43,6 +47,7 @@
 		<div class="row">
 			<div class="col-md-4 mx-auto">
 				<div class="card card-body">
+					<!-- Formulario -->
 					<form action="edit.php?id=<?php echo $_GET['id']; ?>" method="POST">
 						<div class="form-group">
 							<input
@@ -53,7 +58,12 @@
 								placeholder="Actualiza el titulo">
 						</div>
 						<div class="form-group">
-							<input type="date" name="date" value="<?php echo $date; ?>" class="form-control" placeholder="Fecha de Apertura YYYY-mm-dd">
+							<input
+								type="date"
+								name="date"
+								value="<?php echo $date; ?>"
+								class="form-control"
+								placeholder="Fecha de Apertura YYYY-mm-dd">
 						</div>
 						<!-- Boton que ejecutara el formulario -->
 						<button type="submit" class="btn btn-success" name="update">
