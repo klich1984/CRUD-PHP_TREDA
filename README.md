@@ -25,8 +25,8 @@ En esta aplicación se podrá crear una tienda con sus respectivos productos la 
 
 Para usar la aplicación debes de descargar o clonar este repositorio en tu máquina local.
 
-$ git clone https://github.com/klich1984/CRUD-PHP_TREDA.git
-$ cd ../path/to/the/file
+    $ git clone https://github.com/klich1984/CRUD-PHP_TREDA.git
+    $ cd ../path/to/the/file
 
 Para correr el proyecto debes de tener un servidor corriendo en tu máquina local, yo en mi caso utilice [XAMPP](https://www.apachefriends.org/es/index.html), que al iniciarlo cuenta con todo lo necesario para servir nuestra aplicación, la cual se guarda en la carpeta htdocs de xampp.
 
@@ -42,7 +42,8 @@ Una vez todo esté configurado y corriendo en tu máquina local **(Localhost)** 
 
 - EJ: para mi caso para correr mi aplicación por medio de de mi configuración de XAMPP se realizaba en la siguiente ruta.
 
-  http://localhost/prueba-tecnica-treda/index.php
+
+        http://localhost/prueba-tecnica-treda/index.php
 
 ---
 
