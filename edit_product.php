@@ -2,13 +2,13 @@
 
 	include('database/db.php');
 
+	/* Si hay datos enviados por el metodo GET */
 	if (isset($_GET['sku'])) {
 		$SKU = $_GET['sku'];
-		// echo $SKU;
 		$query = "SELECT * FROM Producto WHERE SKU = $SKU";
 
 		$result = mysqli_query($conn, $query);
-		// // Comprobar cuantas lineas tiene mis resultados
+		// Comprobar cuantas lineas tiene mis resultados
 		if (mysqli_num_rows($result) == 1 ) {
 			$row = mysqli_fetch_array($result);
 			$tienda_id = $row['tienda_id'];
@@ -16,26 +16,18 @@
 			$description_product = $row['descripcion'];
 			$price_product = $row['valor'];
 			$image_product = $row['imagen'];
-			// echo $tienda_id."<br/>";
-			// echo $name_product."<br/>";
-			// echo $description_product."<br/>";
-			// echo $price_product."<br/>";
 		}
 	}
 
+	/* Si hay datos enviados por el metodo POST y es de nombre update */
 	if (isset($_POST['update'])) {
-		// echo 'Actualizando...';
 		$tienda_id = $_POST['tienda_id'];
 		$name_product = $_POST['name'];
 		$description_product = $_POST['description'];
 		$price_product = $_POST['price'];
 		$image_product = (isset($_FILES['txtImage']['name'])) ? $_FILES['txtImage']['name'] : '';
-		// echo $tienda_id."<br/>";
-		// echo $name_product."<br/>";
-		// echo $description_product."<br/>";
-		// echo $price_product."<br/>";
-		// echo $image_product."<br/>";
 
+		/* Verificar que el dato price(value) sea de tipo numerico */
 		if (is_numeric($price_product)) {
 			/* Actualizar imagen nueva*/
 			$dateNow = new DateTime();
@@ -50,10 +42,8 @@
 			$result = mysqli_query($conn, $query1);
 			// Comprobar cuantas lineas tiene mis resultados
 			if (mysqli_num_rows($result) == 1 ) {
-				// echo 'Puedemos editar';
 				$row = mysqli_fetch_array($result);
 				$image = $row['imagen'];
-				// echo $image;
 			}
 
 			if (isset($image) && ($image != 'imagen.jpg')) {
@@ -66,7 +56,6 @@
 			/* Query Actualizar Producto */
 			$query = "UPDATE Producto SET nombre_producto = '$name_product', descripcion = '$description_product',  valor = $price_product, imagen = '$nameFileImage'  WHERE SKU = $SKU";
 
-			// echo $query;
 			mysqli_query($conn, $query);
 
 			$_SESSION['message'] = 'Producto actualizado Correctamente';
@@ -82,11 +71,9 @@
 			header("Location: productos.php?id=$tienda_id");
 		}
 	}
-
 ?>
 
 <?php include('includes/header.php') ?>
-
 
 	<div class="container p-4">
 		<div class="row">

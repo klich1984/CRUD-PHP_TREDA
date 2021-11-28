@@ -10,8 +10,4 @@ $conn = mysqli_connect(
 	'treda-solutions'
 );
 
-// if (isset($conn)) {
-// 	echo 'Database conectada';
-// }
-
 ?>

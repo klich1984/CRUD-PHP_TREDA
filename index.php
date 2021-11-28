@@ -2,7 +2,6 @@
 
 <?php include('./includes/header.php') ?>
 
-
 <div class="container p-4">
 	<div class="row">
 		<div class="col-md-4">
@@ -72,7 +71,7 @@
 								<?php
 									$query = "SELECT * FROM Tienda";
 									$all_tiendas = mysqli_query($conn, $query);
-									/* Recorro cada una de las tiendas  */
+									/* Recorro cada una de las tiendas para incrustar dinamicamente el contenido */
 									while ($row = mysqli_fetch_array($all_tiendas)) { ?>
 										<tr>
 											<td><?php echo $row['nombre'] ?> </td>

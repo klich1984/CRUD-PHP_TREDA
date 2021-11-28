@@ -1,26 +1,21 @@
 <?php
 /* Incluir la conexio de la base de datos guardada en la variable conn*/
 include("database/db.php");
-// echo $_GET['id'];
 $tienda_id = $_GET['id'];
-/* query para capturar el nimbre de la tienda */
+/* query para capturar el nombre de la tienda */
 $query1 = "SELECT nombre FROM Tienda WHERE tienda_id = $tienda_id";
 
 $result = mysqli_query($conn, $query1);
 		// Comprobar cuantas lineas tiene mis resultados
 		if (mysqli_num_rows($result) == 1 ) {
-			// echo 'Puedemos editar';
 			$row = mysqli_fetch_array($result);
 			$name = $row['nombre'];
-			// echo $name;
 		}
 
-// var_dump($name);
-
-// $txtImage = 'image.png'
-
 ?>
+
 <?php require('includes/header.php') ?>
+
 <div class="container">
 		<h1 class="text-center text-info">Nombre Tienda: <?php echo $name ?></h1>
 		<div class="col-md-6 m-auto">
@@ -120,9 +115,8 @@ $result = mysqli_query($conn, $query1);
 								<?php
 									$query = "SELECT * FROM Producto P JOIN Tienda T ON P.tienda_id = T.tienda_id WHERE P.tienda_id = $tienda_id";
 									$all_productos = mysqli_query($conn, $query);
-									// var_dump($all_productos);
 
-									/* Recorro cada una de los productos  */
+									/* Recorro cada una de los productos e insertar dinamicamente cada registro */
 									while ($row = mysqli_fetch_array($all_productos)) { ?>
 										<tr>
 											<td><?php echo $row['SKU'] ?> </td>

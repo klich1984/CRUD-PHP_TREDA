@@ -2,6 +2,7 @@
 
 	include('database/db.php');
 
+	/* Si hay datos enviados por el metodo GET */
 	if (isset($_GET['id'])) {
 		$id = $_GET['id'];
 		$query = "SELECT * FROM Tienda WHERE tienda_id = $id";
@@ -12,26 +13,21 @@
 			$row = mysqli_fetch_array($result);
 			$nombre = $row['nombre'];
 			$date = $row['fecha_apertura'];
-		// 	echo $nombre;
-		// echo $date;
 		}
 	}
 
+	/* Si hay datos enviados por el metodo POST y es de nombre update */
 	if (isset($_POST['update'])) {
-		// echo 'Actualizando...';
 		$id = $_GET['id'];
 		$nombre = $_POST['nombre'];
 		$date = $_POST['date'];
-		// echo $nombre;
-		// echo $date;
-		// echo $id;
 
 		/* Convertir dato en formato dd-mm-YYYY */
 		$date_time = date_create($date);
 		$new_format_date = date_format($date_time, 'd-m-Y');
 
 		$regExpres = "/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/";
-
+		/* Verificar si el formato de la fecha es correcto */
 		if (preg_match($regExpres , $new_format_date)) {
 			$query = "UPDATE Tienda SET nombre = '$nombre', fecha_apertura = '$date' WHERE tienda_id = $id";
 
@@ -51,9 +47,7 @@
 			/* Redireccionar */
 			header("location: index.php");
 		}
-
 	}
-
 ?>
 
 <?php include('includes/header.php') ?>

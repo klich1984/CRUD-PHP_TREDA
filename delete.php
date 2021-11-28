@@ -4,7 +4,6 @@
 
 	if (isset($_GET['id'])) {
 		$id = $_GET['id'];
-		// echo $id;
 		$query = "DELETE FROM Tienda WHERE tienda_id = $id";
 
 		$result = mysqli_query($conn, $query);
@@ -17,5 +16,4 @@
 		// Redireccionamos
 		header('Location: index.php');
 	}
-
 ?>

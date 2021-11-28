@@ -1,9 +1,8 @@
 <?php
 /* Incluir la conexio de la base de datos guardada en la variable conn*/
 include("database/db.php");
-// echo $_POST['title'];
 
-
+/* Si fue procesado el formulario con el boton llamdo save-shop */
 if (isset($_POST['save_shop'])) {
 	$title = $_POST['title'];
 	$date = date($_POST['date']);
@@ -19,11 +18,11 @@ if (isset($_POST['save_shop'])) {
 		/* Consulta que se realizara a la bd, Inserccion de datos */
 		$query = "INSERT INTO Tienda(nombre, fecha_apertura) VALUES ('$title', '$date');";
 		$result = mysqli_query($conn, $query);
-
+		/* Si hay un error en la conexion termina la conexion */
 		if (!$result) {
 			die("Consulta no realizada");
 		}
-		// echo 'Guardado';
+
 		/* Guardar en la sesion un mensaje y un color */
 		$_SESSION['message'] = 'La tienda ha sido guardada correctamente';
 		$_SESSION['message_type'] = 'success';
@@ -37,6 +36,4 @@ if (isset($_POST['save_shop'])) {
 		/* Redireccionar */
 		header("location: index.php");
 	}
-
-
 };
