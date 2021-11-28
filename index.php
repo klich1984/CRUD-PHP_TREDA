@@ -33,11 +33,13 @@
 								placeholder="Nombre de la tienda" autofocus>
 						</div>
 						<div class="form-group">
+							<label for="date">Fecha Apertura</label>
 							<input
 								type="date"
 								name="date"
 								class="form-control"
-								placeholder="Fecha de Apertura">
+								placeholder="Fecha de Apertura"
+								min=<?php $date_now=date("Y-m-d"); echo $date_now;?>>
 						</div>
 						<!-- Input para procesar el formulario -->
 						<input
@@ -74,7 +76,10 @@
 									while ($row = mysqli_fetch_array($all_tiendas)) { ?>
 										<tr>
 											<td><?php echo $row['nombre'] ?> </td>
-											<td><?php echo $row['fecha_apertura'] ?></td>
+											<td><?php
+												$date_time = date_create($row['fecha_apertura']);
+												$new_format_date = date_format($date_time, 'd-m-Y');
+												echo  $new_format_date; ?></td>
 											<td class="text-center">
 												<a href="productos.php?id=<?php echo $row['tienda_id']?>" class="btn btn-warning">
 													<i class="fas fa-tasks"> Ver productos</i>

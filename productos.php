@@ -3,7 +3,7 @@
 include("database/db.php");
 // echo $_GET['id'];
 $tienda_id = $_GET['id'];
-/* SELECT nombre FROM `Tienda` WHERE tienda_id = 12; */
+/* query para capturar el nimbre de la tienda */
 $query1 = "SELECT nombre FROM Tienda WHERE tienda_id = $tienda_id";
 
 $result = mysqli_query($conn, $query1);
@@ -78,15 +78,6 @@ $result = mysqli_query($conn, $query1);
 						</div>
 						<!-- Imagen -->
 						<div class="form-group">
-							<label for="txtImage">Imagen:</label>
-							producto.jpg
-							<div>
-								<img
-									src="https://www.w3schools.com/bootstrap4/img_avatar4.png"
-									alt="Nombre Producto"
-									width="50"
-									class="img-thumbnail rounded mb-2">
-							</div>
 							<input
 								type="file"
 								id="txtImage"
@@ -138,7 +129,14 @@ $result = mysqli_query($conn, $query1);
 											<td><?php echo $row['nombre_producto'] ?></td>
 											<td><?php echo $row['descripcion'] ?></td>
 											<td>$ <?php echo $row['valor'] ?></td>
-											<td><?php echo $row['imagen'] ?></td>
+											<td>
+												<div class="text-center">
+													<img
+														src="./images/	<?php echo $row['imagen'] ?>"
+														alt="<?php echo $row['descripcion']?>"
+														width="50">
+												</div>
+											</td>
 											<td class="text-center">
 												<a href="edit_product.php?sku=<?php echo $row['SKU']?>" class="btn btn-info">
 													<i class="far fa-edit"></i>

@@ -25,18 +25,33 @@
 		// echo $nombre;
 		// echo $date;
 		// echo $id;
-		$query = "UPDATE Tienda SET nombre = '$nombre', fecha_apertura = '$date' WHERE tienda_id = $id";
 
-		$result = mysqli_query($conn, $query);
-		// Si no hay un resultado terminanmos la conexion
-		if (!$result) {
-			die('La consulta fallo =(');
+		/* Convertir dato en formato dd-mm-YYYY */
+		$date_time = date_create($date);
+		$new_format_date = date_format($date_time, 'd-m-Y');
+
+		$regExpres = "/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/";
+
+		if (preg_match($regExpres , $new_format_date)) {
+			$query = "UPDATE Tienda SET nombre = '$nombre', fecha_apertura = '$date' WHERE tienda_id = $id";
+
+			$result = mysqli_query($conn, $query);
+			// Si no hay un resultado terminanmos la conexion
+			if (!$result) {
+				die('La consulta fallo =(');
+			}
+
+			$_SESSION['message'] = 'Tienda actualizada Correctamente';
+			$_SESSION['message_type'] = 'primary';
+			/* Redireccionar */
+			header("Location: index.php");
+		} else {
+			$_SESSION['message'] = 'La fecha esta en el formato incorrecto';
+			$_SESSION['message_type'] = 'danger';
+			/* Redireccionar */
+			header("location: index.php");
 		}
 
-		$_SESSION['message'] = 'Tienda actualizada Correctamente';
-		$_SESSION['message_type'] = 'primary';
-		/* Redireccionar */
-		header("Location: index.php");
 	}
 
 ?>
@@ -63,7 +78,8 @@
 								name="date"
 								value="<?php echo $date; ?>"
 								class="form-control"
-								placeholder="Fecha de Apertura YYYY-mm-dd">
+								placeholder="Fecha de Apertura YYYY-mm-dd"
+								min=<?php $date_now=date("Y-m-d"); echo $date_now;?>>
 						</div>
 						<!-- Boton que ejecutara el formulario -->
 						<button type="submit" class="btn btn-success" name="update">

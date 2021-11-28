@@ -36,42 +36,51 @@
 		// echo $price_product."<br/>";
 		// echo $image_product."<br/>";
 
-		/* Actualizar imagen nueva*/
-		$dateNow = new DateTime();
-		$nameFileImage = ($image_product != '') ? $dateNow->getTimestamp().'_'.$_FILES['txtImage']['name'] : 'imagen.jpg';
+		if (is_numeric($price_product)) {
+			/* Actualizar imagen nueva*/
+			$dateNow = new DateTime();
+			$nameFileImage = ($image_product != '') ? $dateNow->getTimestamp().'_'.$_FILES['txtImage']['name'] : 'imagen.jpg';
 
-		$tmpImage = $_FILES['txtImage']['tmp_name'];
-		move_uploaded_file($tmpImage, './images/'.$nameFileImage);
+			$tmpImage = $_FILES['txtImage']['tmp_name'];
+			move_uploaded_file($tmpImage, './images/'.$nameFileImage);
 
-		/* Borrar imagen antigua */
-		$query1 = "SELECT imagen FROM Producto WHERE SKU = $SKU";
+			/* Borrar imagen antigua */
+			$query1 = "SELECT imagen FROM Producto WHERE SKU = $SKU";
 
-		$result = mysqli_query($conn, $query1);
-		// Comprobar cuantas lineas tiene mis resultados
-		if (mysqli_num_rows($result) == 1 ) {
-			// echo 'Puedemos editar';
-			$row = mysqli_fetch_array($result);
-			$image = $row['imagen'];
-			// echo $image;
-		}
-
-		if (isset($image) && ($image != 'imagen.jpg')) {
-			if(file_exists('./images/'.$image)) {
-				/* Borrar el archivo  */
-				unlink('./images/'.$image);
+			$result = mysqli_query($conn, $query1);
+			// Comprobar cuantas lineas tiene mis resultados
+			if (mysqli_num_rows($result) == 1 ) {
+				// echo 'Puedemos editar';
+				$row = mysqli_fetch_array($result);
+				$image = $row['imagen'];
+				// echo $image;
 			}
+
+			if (isset($image) && ($image != 'imagen.jpg')) {
+				if(file_exists('./images/'.$image)) {
+					/* Borrar el archivo  */
+					unlink('./images/'.$image);
+				}
+			}
+
+			/* Query Actualizar Producto */
+			$query = "UPDATE Producto SET nombre_producto = '$name_product', descripcion = '$description_product',  valor = $price_product, imagen = '$nameFileImage'  WHERE SKU = $SKU";
+
+			// echo $query;
+			mysqli_query($conn, $query);
+
+			$_SESSION['message'] = 'Producto actualizado Correctamente';
+			$_SESSION['message_type'] = 'primary';
+			/* Redireccionar */
+			header("Location: productos.php?id=$tienda_id");
+
+		} else {
+			$_SESSION['message'] = 'El campo Valor ingresado debe ser un número';
+			$_SESSION['message_type'] = 'danger';
+
+			/* Redireccionar */
+			header("Location: productos.php?id=$tienda_id");
 		}
-
-		/* Query Actualizar Producto */
-		$query = "UPDATE Producto SET nombre_producto = '$name_product', descripcion = '$description_product',  valor = $price_product, imagen = '$nameFileImage'  WHERE SKU = $SKU";
-
-		// echo $query;
-		mysqli_query($conn, $query);
-
-		$_SESSION['message'] = 'Producto actualizado Correctamente';
-		$_SESSION['message_type'] = 'primary';
-		/* Redireccionar */
-		header("Location: productos.php?id=$tienda_id");
 	}
 
 ?>
@@ -128,7 +137,7 @@
 								<?php echo $image_product ?>
 								<div>
 									<img
-										src="https://www.w3schools.com/bootstrap4/img_avatar4.png"
+										src="./images/<?php echo $image_product ?>"
 										alt="Nombre Producto"
 										width="50"
 										class="img-thumbnail rounded mb-2">

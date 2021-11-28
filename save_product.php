@@ -12,39 +12,49 @@ if (isset($_POST['save_product'])) {
 	$image_product = (isset($_FILES['txtImage']['name'])) ? $_FILES['txtImage']['name'] : '';
 	$tienda_id = $_POST['id'];
 
-	/* Almacenar imagen */
-	$dateNow = new DateTime();
-	$nameFileImage = ($image_product != '') ? $dateNow->getTimestamp().'_'.$_FILES['txtImage']['name'] : 'imagen.jpg';
+	if (is_numeric($price_product)) {
+		echo 'Es un numero';
+		/* Almacenar imagen */
+		$dateNow = new DateTime();
+		$nameFileImage = ($image_product != '') ? $dateNow->getTimestamp().'_'.$_FILES['txtImage']['name'] : 'imagen.jpg';
 
-	$tmpImage = $_FILES['txtImage']['tmp_name'];
+		$tmpImage = $_FILES['txtImage']['tmp_name'];
 
-	if ($tmpImage != '') {
-		/* Mover la imagen al carpeta indicado */
-		move_uploaded_file($tmpImage, './images/'.$nameFileImage);
+		if ($tmpImage != '') {
+			/* Mover la imagen al carpeta indicado */
+			move_uploaded_file($tmpImage, './images/'.$nameFileImage);
+		}
+
+		// echo $name_product.'<br/>';
+		// echo $description_product.'<br/>';
+		// echo $price_product.'<br/>';
+		// echo $image_product.'<br/>';
+		// echo $nameFileImage.'<br/>';
+		// echo $tienda_id.'<br/>';
+
+		/* Consulta que se realizara a la bd, Inserccion de datos */
+		$query = "INSERT INTO Producto(tienda_id, nombre_producto, descripcion, valor, imagen) VALUES ($tienda_id, '$name_product', '$description_product', $price_product, '$nameFileImage' );";
+		// echo $query;
+		$result = mysqli_query($conn, $query);
+
+		if (!$result) {
+			die("Consulta no realizada");
+		}
+		// echo 'Guardado';
+		/* Guardar en la sesion un mensaje y un color */
+		$_SESSION['message'] = 'El producto ha sido guardado correctamente';
+		$_SESSION['message_type'] = 'success';
+
+		/* Redireccionar */
+		header("location: productos.php?id=$tienda_id");
+	} else {
+		$_SESSION['message'] = 'El campo Valor ingresado debe ser un número';
+		$_SESSION['message_type'] = 'danger';
+
+		/* Redireccionar */
+		header("location: productos.php?id=$tienda_id");
 	}
 
-	// echo $name_product.'<br/>';
-	// echo $description_product.'<br/>';
-	// echo $price_product.'<br/>';
-	// echo $image_product.'<br/>';
-	// echo $nameFileImage.'<br/>';
-	// echo $tienda_id.'<br/>';
-
-	/* Consulta que se realizara a la bd, Inserccion de datos */
-	$query = "INSERT INTO Producto(tienda_id, nombre_producto, descripcion, valor, imagen) VALUES ($tienda_id, '$name_product', '$description_product', $price_product, '$nameFileImage' );";
-	// echo $query;
-	$result = mysqli_query($conn, $query);
-
-	if (!$result) {
-		die("Consulta no realizada");
-	}
-	// echo 'Guardado';
-	/* Guardar en la sesion un mensaje y un color */
-	$_SESSION['message'] = 'El producto ha sido guardado correctamente';
-	$_SESSION['message_type'] = 'success';
-
-	/* Redireccionar */
-	header("location: productos.php?id=$tienda_id");
 };
 
 ?>
