@@ -143,6 +143,8 @@
 										class="img-thumbnail rounded mb-2">
 								</div>
 								<input
+									required
+									value="<?php echo $image_product ?>"
 									type="file"
 									name="txtImage"
 									class="form-control"
